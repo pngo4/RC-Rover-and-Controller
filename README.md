@@ -1,3 +1,3 @@
 # RC Rover & Controller
 
-![Demo] (Assets\demonstration.gif)
+![Demo](https://github.com/pngo4/RC-Rover-and-Controller/blob/main/Assets/demonstration.gif)
