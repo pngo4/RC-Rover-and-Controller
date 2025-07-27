@@ -16,6 +16,11 @@ int CAL_SAMPLES = 100;
 
 int deadzone = 20;
 
+//pins for the ultrasonic sensor
+const int echo = 8;
+const int trig = 9;
+
+
 //joystick input calibration and normalization function
 
 //normalize readings to -1, 0, 1
@@ -34,6 +39,20 @@ void calibrateJoystick() {
   }
   CENTER_X = sx / CAL_SAMPLES;
   CENTER_Y = sy / CAL_SAMPLES;
+}
+
+int ultrasonicSensorData() {
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+
+  long duration = pulseIn(echo, HIGH);
+
+  long distance = duration / 58.0 //formula: uS / 58 = centimeters
+
+  return distance;
 }
 ////////////////////////////////////////////////////////
 
@@ -120,6 +139,8 @@ void setup() {
   pinMode(RIGHT_IN2, OUTPUT);
   pinMode(LEFT_IN1, OUTPUT);
   pinMode(LEFT_IN2, OUTPUT);
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
 
   // Enable motors
   digitalWrite(EN12, HIGH);
@@ -161,7 +182,7 @@ if (nx == 0 && ny == 0) {
   backRight();
 }
 
-  delay(50);
+  delay(70);
 
 }
 
